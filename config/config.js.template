@@ -1,0 +1,23 @@
+module.exports = {
+  ttpUrl: 'https://ttp.cbp.dhs.gov/schedulerapi/slots',
+  locationId: '<LOCATION_ID>', // test: use '5001', slots are available always
+  alertType: 'POPUP_ALERT', // supported values: ['EMAIL', 'SMS', 'POPUP_ALERT']
+  playMusic: '<LOCATION_MUSIC_FILE>' // play your own music, defaults to 'beep'. Ex. file path = 'extras/astra.mp4'
+  email: {
+    from: '<FROM>',
+    to: '<TO>',
+    // using gmail app password for sending emails
+    auth: {
+      user: '<YOUR@GMAIL.COM>',
+      pass: '<APP_PASSWORD>'
+    }
+  },
+  sms: {
+    from: '<FROM>',
+    to: '<TO>',
+    sinch: {
+      apiKey: '<SINCH_API_KEY>',
+      apiSecret: '<SINCH_API_SECRET>'
+    }
+  }
+}
