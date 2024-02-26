@@ -6,7 +6,7 @@
  - brew install npm
 
 # Install node modules
- - cd <PROJECT_ROOT>/\
+ - cd <PROJECT_ROOT>/
  - npm install
 
 # Make a copy of config/config.js.template
