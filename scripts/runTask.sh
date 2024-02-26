@@ -1,0 +1,1 @@
+node ./app/globalEntryTracker.js --schedule=true
