@@ -3,6 +3,7 @@ module.exports = {
   locationId: '<LOCATION_ID>', // test: use '5001', slots are available always
   alertType: 'POPUP_ALERT', // supported values: ['EMAIL', 'SMS', 'POPUP_ALERT']
   playMusic: '<LOCATION_MUSIC_FILE>' // play your own music, defaults to 'beep'. Ex. file path = 'extras/astra.mp4'
+  scheduleInSeconds: '<SECONDS>', // minimum value is 60
   email: {
     from: '<FROM>',
     to: '<TO>',
