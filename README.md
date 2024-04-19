@@ -26,8 +26,8 @@
     API Key & Secrets are needed [https://www.sinch.com/]
 
 # Execute, check for slots
-  --schedule: true / false , run the task once or schedule it
-  --upto: <integer> , alerts only if an available slot is found between now and now+upto days.
+- schedule: true / false , run the task once or schedule it
+- upto: <integer> , alerts only if an available slot is found between now and now+upto days.
 ## Run the task only once
  - cd <PROJECT_ROOT>/
  - node ./app/globalEntryTracker.js --schedule=false --upto=21
