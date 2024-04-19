@@ -1,4 +1,3 @@
-const nodeSchedule = require('node-schedule');
 const helpers = require('./helpers');
 const utils = require('./utils');
 const execSync = require('child_process').execSync;
@@ -6,6 +5,8 @@ const fs = require('fs');
 
 let args = require('minimist')(process.argv.slice(2));
 let schedule = args.schedule === "true" ? true : false;
+let upto = args.upto !== null ? parseInt(args.upto) : -1;
+let untilSlotDate = (upto !== -1) ? utils.m.createMoment().add(upto, 'days') : null;
 
 let NOTIFICATION_TYPES = {
   'SMS': 'SMS',
@@ -98,6 +99,11 @@ function notify(data, notificationType, callback) {
   availableSlot.dateStr = slotDateTime.format('MMM DD, YYYY');
   availableSlot.timeStr = slotDateTime.format('hh:mm A');
 
+  if (untilSlotDate !== null && slotDateTime.isAfter(untilSlotDate)) {
+    console.log(`Available slot date: ${slotDateTime.format()} is more than ${upto} day(s) from now, ignore!`);
+    return callback(null);
+  }
+
   switch (notificationType) {
     case NOTIFICATION_TYPES.EMAIL:
       return sendEmail(availableSlot, callback);
@@ -138,13 +144,17 @@ function performTask(callback) {
 }
 
 if (schedule) {
-  console.log('perform task, schedule every minute');
-  nodeSchedule.scheduleJob('* * * * *', function () {
-    performTask(function () {});
-  });
+  console.log(`perform task, schedule every ${utils.config.scheduleInMinutes} minute(s)`);
+  if (untilSlotDate !== null) {
+    console.log(`Looking for slot dates in the next ${upto} day(s), before`, untilSlotDate.format());
+  }
+  setInterval(
+    function () {
+      performTask(function () {});
+    },
+    utils.config.scheduleInSeconds * 1000
+  );
 } else {
   console.log('perform task, run-once');
-  performTask(function () {});
+  performTask(function() {});
 }
-
-
